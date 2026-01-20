@@ -3,193 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASTO | Official Site</title>
     
-    <title>DASTODJ | Only Music For Dancers - Official Site</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- inserire un favicon qui sotto-->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
-
-    <meta name="description" content="Sito ufficiale di DASTODJ. Booking e Press Kit 2026. DJ set per eventi, club e private party a Napoli e in tutta Italia.">
-    <meta name="keywords" content="DASTODJ, DJ Napoli, DJ per eventi, techno, house, musica elettronica, booking DJ">
-    <meta name="author" content="DASTODJ">
-
-    <meta property="og:title" content="DASTO MUSIC | Only Music For Dancers">
-    <meta property="og:description" content="Scarica il Press Kit e prenota il tuo DJ Set.">
-    <meta property="og:image" content="https://dastocss.github.io/DASTODJ/og-image.jpg"> <meta property="og:url" content="https://dastocss.github.io/DASTODJ/">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; position: relative; }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
 
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        #bg-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
-        }
-
-        /* --- ANIMAZIONI --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
-        }
-
-        .animate {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
+        .container { position: relative; z-index: 10; text-align: center; width: 100%; max-width: 420px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Animazioni */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
         .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1.0s; }
-        .delay-6 { animation-delay: 1.2s; }
 
-        .logo {
-            font-size: 4rem;
-            font-weight: 900;
-            letter-spacing: 15px;
-            margin-bottom: 5px;
-            background: linear-gradient(to bottom, #fff 30%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .logo { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            letter-spacing: 15px; 
+            margin-bottom: 30px; 
+            background: linear-gradient(to bottom, #fff 30%, #444 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
         }
 
-        .tagline {
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            color: #aaa;
-            margin-bottom: 40px;
-            text-transform: uppercase;
+        .links-container { display: flex; flex-direction: column; gap: 12px; }
+        
+        .btn { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 16px; 
+            color: #fff; 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            border-radius: 12px; 
+            transition: all 0.3s ease; 
+            backdrop-filter: blur(10px); 
         }
 
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .btn:hover { background: #fff; color: #000; transform: translateY(-3px); }
+
+        .section-title { 
+            color: #666; 
+            font-size: 10px; 
+            letter-spacing: 3px; 
+            margin-top: 25px; 
+            margin-bottom: 10px; 
+            text-transform: uppercase; 
         }
 
-        .btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 16px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
+        .whatsapp-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25d366; 
+            color: white !important; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 32px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
+            z-index: 1000; 
+            text-decoration: none; 
+            transition: all 0.3s ease; 
         }
 
-        .btn:hover {
-            border-color: #fff;
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        @media (max-width: 768px) {
+            .logo { font-size: 3rem; letter-spacing: 10px; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 55px; height: 55px; }
         }
-
-        .btn-whatsapp {
-            border-color: #25D366;
-            color: #25D366;
-            font-weight: bold;
-        }
-
-        footer {
-            margin-top: 50px;
-            font-size: 0.7rem;
-            color: #555;
-            letter-spacing: 4px;
-        }
-        .whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #25d366;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    color: white;
-}
-
-/* Nascondi il testo "DASTO" se si sovrappone su schermi piccoli */
-@media (max-width: 768px) {
-    .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-    }
-}.float-btn {
-    position: fixed;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    color: white !important;
-}
-.whatsapp-btn { bottom: 30px; background-color: #25d366; }
-.call-btn { bottom: 100px; background-color: #007bff; }
-.float-btn:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -199,107 +92,59 @@
     <main class="container">
         <h1 class="logo animate delay-1">DASTO</h1>
 
-    <div class="player-container animate delay-2" style="margin: 40px auto; max-width: 450px; width: 90%; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-        <iframe 
-            width="100%" 
-            height="300" 
-            scrolling="no" 
-            frameborder="no" 
-            allow="autoplay" 
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2244041627&color=%23111111&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-        </iframe>
-    </div>
+        <div class="player-container animate delay-2" style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2244041627&color=%23111111&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+        </div>
 
-    <div class="links animate delay-3">
-        
+        <div class="links-container animate delay-3">
+            <p class="section-title">Press & Technical</p>
+            <a href="pdf/presskit-dasto.pdf" class="btn" target="_blank">📂 View Press Kit</a>
+            <a href="pdf/tech-rider-dasto.pdf" class="btn" target="_blank">⚙️ Tech Rider</a>
 
-        <nav class="links-container">
-            <a href="https://tinyurl.com/mrp427xr" class="btn animate delay-3" target="_blank" rel="noopener">📂 Press Kit 2026</a>
-            <a href="https://tinyurl.com/TRiderr" class="btn animate delay-4" target="_blank" rel="noopener">⚙️ Tech Rider</a>
-            <a href="https://tinyurl.com/Listinoprez" class="btn animate delay-5" target="_blank" rel="noopener">💰 Price List</a>
-            <a href="https://wa.me/393514090392" class="btn btn-whatsapp animate delay-6" target="_blank" rel="noopener">📱 Booking WhatsApp</a>
-        </nav>
+            <p class="section-title">Professional Training</p>
+            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20info%20sui%20corsi%20DJ" class="btn">🎧 DJ Course</a>
+            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20info%20sui%20corsi%20Producer" class="btn">🎹 Producer Course</a>
+            
+            <p class="section-title">Booking</p>
+            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="btn" style="border-color: #25d366; color: #25d366;">📱 WhatsApp Booking</a>
+        </div>
 
-        <footer class="animate delay-6">NAPLES • 2026</footer>
+        <footer style="margin-top: 50px; font-size: 0.7rem; color: #444; letter-spacing: 3px;">NAPLES • 2026</footer>
     </main>
+
+    <a href="https://wa.me/393514090392" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
+        function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = 'rgba(255, 255, 255, ' + (Math.random() * 0.3 + 0.1) + ')';
+                this.size = Math.random() * 1.2 + 0.1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = 'rgba(255, 255, 255, ' + (Math.random() * 0.2 + 0.1) + ')';
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
             }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < 80; i++) {
-                particles.push(new Particle());
-            }
-        }
-
+        function createParticles() { particles = []; for (let i = 0; i < 70; i++) { particles.push(new Particle()); } }
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Sfondo sfumato deep blue/black
-            const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width);
-            gradient.addColorStop(0, '#0d0d1a');
-            gradient.addColorStop(1, '#000000');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            ctx.fillStyle = '#000'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
-
-        window.addEventListener('resize', () => {
-            init();
-            createParticles();
-        });
-
-        init();
-        createParticles();
-        animate();
+        window.addEventListener('resize', () => { init(); createParticles(); });
+        init(); createParticles(); animate();
     </script>
-    <a href="https://wa.me/39XXXXXXXXXX?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="whatsapp-float" target="_blank">
-    <i style="font-style: normal;">WA</i>
-</a>
-<a href="tel:+393514090392" class="float-btn call-btn">
-    <i class="fas fa-phone"></i>
-</a>
-
-<a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="float-btn whatsapp-btn" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
 </body>
 </html>
