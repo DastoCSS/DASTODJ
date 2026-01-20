@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>DASTODJ | Only Music For Dancers - Official Site</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- inserire un favicon qui sotto-->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
 
@@ -136,6 +137,59 @@
             color: #555;
             letter-spacing: 4px;
         }
+        .whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Nascondi il testo "DASTO" se si sovrappone su schermi piccoli */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+}.float-btn {
+    position: fixed;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    color: white !important;
+}
+.whatsapp-btn { bottom: 30px; background-color: #25d366; }
+.call-btn { bottom: 100px; background-color: #007bff; }
+.float-btn:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -148,7 +202,7 @@
     <div class="player-container animate delay-2" style="margin: 40px auto; max-width: 450px; width: 90%; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
         <iframe 
             width="100%" 
-            height="200" 
+            height="300" 
             scrolling="no" 
             frameborder="no" 
             allow="autoplay" 
@@ -157,8 +211,7 @@
     </div>
 
     <div class="links animate delay-3">
-        <a href="URL_PRESS_KIT" class="btn">PRESS KIT</a>
-        ...
+        
 
         <nav class="links-container">
             <a href="https://tinyurl.com/mrp427xr" class="btn animate delay-3" target="_blank" rel="noopener">📂 Press Kit 2026</a>
@@ -238,5 +291,15 @@
         createParticles();
         animate();
     </script>
+    <a href="https://wa.me/39XXXXXXXXXX?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="whatsapp-float" target="_blank">
+    <i style="font-style: normal;">WA</i>
+</a>
+<a href="tel:+393514090392" class="float-btn call-btn">
+    <i class="fas fa-phone"></i>
+</a>
+
+<a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="float-btn whatsapp-btn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
 </body>
 </html>
