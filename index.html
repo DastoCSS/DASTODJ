@@ -10,16 +10,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap" rel="stylesheet">
     
     <style>
-        /* RESET GENERALE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* VARIABILI TEMA DINAMICO */
+        :root {
+            --bg-color: #000;
+            --text-color: #fff;
+            --btn-bg: rgba(255, 255, 255, 0.05);
+            --btn-border: rgba(255, 255, 255, 0.1);
+            --section-title: #aaa;
+            --social-color: #999;
+        }
+
+        /* TEMA CHIARO (Applicato via JS di giorno) */
+        body.light-theme {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --btn-bg: rgba(0, 0, 0, 0.05);
+            --btn-border: rgba(0, 0, 0, 0.1);
+            --section-title: #666;
+            --social-color: #444;
+        }
+
         body { 
-            background-color: #000; 
-            color: #fff; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
             font-family: 'Inter', sans-serif; 
             min-height: 100vh; 
             overflow-x: hidden; 
             position: relative; 
+            transition: background 0.8s ease, color 0.8s ease;
         }
 
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
@@ -48,18 +68,19 @@
             font-weight: 900; 
             letter-spacing: 15px; 
             margin-bottom: 30px; 
-            background: linear-gradient(to bottom, #fff 30%, #444 100%); 
-            -webkit-background-clip: text; 
+            background: linear-gradient(to bottom, var(--text-color) 30%, #444 100%); 
+            -webkit-background-clip: text; /* Per Safari/Chrome */
+            background-clip: text;         /* Proprietà standard risolve l'errore */
             -webkit-text-fill-color: transparent; 
         }
 
         .links-container { display: flex; flex-direction: column; gap: 12px; }
         
         .btn { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            background: var(--btn-bg); 
+            border: 1px solid var(--btn-border); 
             padding: 16px; 
-            color: #fff; 
+            color: var(--text-color); 
             text-decoration: none; 
             font-size: 0.85rem; 
             letter-spacing: 2px; 
@@ -69,15 +90,16 @@
             backdrop-filter: blur(10px); 
         }
 
-        .btn:hover { background: #fff; color: #000; transform: translateY(-3px); }
+        .btn:hover { background: var(--text-color); color: var(--bg-color); transform: translateY(-3px); }
 
         .section-title { 
-            color: #666; 
+            color: var(--section-title); 
             font-size: 10px; 
             letter-spacing: 3px; 
             margin-top: 25px; 
             margin-bottom: 10px; 
             text-transform: uppercase; 
+            font-weight: 600;
         }
 
         .social-links {
@@ -88,16 +110,12 @@
         }
 
         .social-links a {
-            color: #555;
-            font-size: 24px;
+            color: var(--social-color);
+            font-size: 26px;
             transition: all 0.3s ease;
-            text-decoration: none;
         }
 
-        .social-links a:hover {
-            color: #fff;
-            transform: translateY(-3px);
-        }
+        .social-links a:hover { color: var(--text-color); transform: translateY(-3px); }
 
         .whatsapp-float { 
             position: fixed; 
@@ -114,13 +132,11 @@
             font-size: 32px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
             z-index: 1000; 
-            text-decoration: none; 
             transition: all 0.3s ease; 
         }
 
         @media (max-width: 768px) {
             .logo { font-size: 3rem; letter-spacing: 10px; }
-            .whatsapp-float { bottom: 20px; right: 20px; width: 55px; height: 55px; }
         }
     </style>
 </head>
@@ -131,34 +147,29 @@
     <main class="container">
         <h1 class="logo animate delay-1">DASTO</h1>
 
-        <div class="player-container animate delay-2" style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5);">
+        <div class="player-container animate delay-2" style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid var(--btn-border); background: rgba(0,0,0,0.2);">
             <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2251688624&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-            <div style="font-size: 10px; color: #666; padding: 10px; line-break: anywhere; word-break: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-family: 'Inter', sans-serif;">
-                <a href="https://soundcloud.com/dastodj" title="DASTO" target="_blank" style="color: #666; text-decoration: none;">DASTO</a> · 
-                <a href="https://soundcloud.com/dastodj/if-i-cant-50cent-ft-burna-boy" title="If I can't(50cent ft Burna Boy) - DASTO remix" target="_blank" style="color: #666; text-decoration: none;">If I can't Remix</a>
-            </div>
         </div>
-        
 
         <div class="links-container animate delay-3">
-            <p class="section-title">Press & Technical</p>
-            <a href="pdf/presskit-dasto.pdf" class="btn" target="_blank">📂 View Press Kit</a>
-            <a href="pdf/tech-rider-dasto.pdf" class="btn" target="_blank">⚙️ Tech Rider</a>
+            <p class="section-title" id="txt-press-title"></p>
+            <a href="pdf/presskit-dasto.pdf" class="btn" target="_blank" id="txt-press-btn"></a>
+            <a href="pdf/tech-rider-dasto.pdf" class="btn" target="_blank" id="txt-tech-btn"></a>
 
-            <p class="section-title">Professional Training</p>
-            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20info%20sui%20corsi%20DJ" class="btn">🎧 DJ Course</a>
-            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20info%20sui%20corsi%20Producer" class="btn">🎹 Producer Course</a>
-            
-            <p class="section-title">Booking</p>
-            <a href="https://wa.me/393514090392?text=Ciao%20DASTO,%20vorrei%20informazioni%20per%20un%20booking!" class="btn" style="border-color: #25d366; color: #25d366;">📱 WhatsApp Booking</a>
+            <p class="section-title" id="txt-training-title"></p>
+            <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn" id="txt-courses-btn"></a>
+            <a href="https://chat.whatsapp.com/E6Jp7Vn4ZqMLS99xP5cFMM" class="btn" target="_blank" style="margin-top: 5px; background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3);" id="txt-community-btn"></a>
+           
+            <p class="section-title" id="txt-booking-title"></p>
+            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="txt-booking-btn"></a>
         </div>
 
         <div class="social-links animate delay-3">
-            <a href="https://www.instagram.com/dastodj/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://soundcloud.com/dastodj" target="_blank" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+            <a href="https://www.instagram.com/dastodj/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://soundcloud.com/dastodj" target="_blank"><i class="fab fa-soundcloud"></i></a>
         </div>
 
-        <footer style="margin-top: 30px; font-size: 0.7rem; color: #444; letter-spacing: 3px;">NAPLES • 2026</footer>
+        <footer style="margin-top: 30px; font-size: 0.7rem; color: var(--section-title); letter-spacing: 3px;">NAPLES • 2026</footer>
     </main>
 
     <a href="https://wa.me/393514090392" class="whatsapp-float" target="_blank">
@@ -166,12 +177,51 @@
     </a>
 
     <script>
+        // 1. TRADUZIONI AUTOMATICHE
+        const translations = {
+            it: {
+                pressTitle: "Press & Technical",
+                pressBtn: "📂 Vedi Press Kit",
+                techBtn: "⚙️ Scheda Tecnica",
+                trainTitle: "DJ & Producer Training",
+                courseBtn: "🎓 Corsi Professionali",
+                commBtn: "👥 Entra nella Community",
+                bookTitle: "Booking",
+                bookBtn: "📱 WhatsApp Booking"
+            },
+            en: {
+                pressTitle: "Press & Technical",
+                pressBtn: "📂 View Press Kit",
+                techBtn: "⚙️ Tech Rider",
+                trainTitle: "DJ & Producer Training",
+                courseBtn: "🎓 Professional Courses",
+                commBtn: "👥 Join DJ Community",
+                bookTitle: "Booking",
+                bookBtn: "📱 WhatsApp Booking"
+            }
+        };
+
+        const lang = navigator.language.startsWith('it') ? 'it' : 'en';
+        document.getElementById('txt-press-title').innerText = translations[lang].pressTitle;
+        document.getElementById('txt-press-btn').innerText = translations[lang].pressBtn;
+        document.getElementById('txt-tech-btn').innerText = translations[lang].techBtn;
+        document.getElementById('txt-training-title').innerText = translations[lang].trainTitle;
+        document.getElementById('txt-courses-btn').innerText = translations[lang].courseBtn;
+        document.getElementById('txt-community-btn').innerText = translations[lang].commBtn;
+        document.getElementById('txt-booking-title').innerText = translations[lang].bookTitle;
+        document.getElementById('txt-booking-btn').innerText = translations[lang].bookBtn;
+
+        // 2. TEMA GIORNO/NOTTE (Luce tra le 07:00 e le 19:00)
+        const hour = new Date().getHours();
+        if (hour >= 7 && hour < 19) {
+            document.body.classList.add('light-theme');
+        }
+
+        // 3. SFONDO PARTICELLE
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
         function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -179,7 +229,7 @@
                 this.size = Math.random() * 1.2 + 0.1;
                 this.speedX = Math.random() * 0.4 - 0.2;
                 this.speedY = Math.random() * 0.4 - 0.2;
-                this.color = 'rgba(255, 255, 255, ' + (Math.random() * 0.2 + 0.1) + ')';
+                this.color = (hour >= 7 && hour < 19) ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.2)';
             }
             update() {
                 this.x += this.speedX; this.y += this.speedY;
@@ -188,18 +238,13 @@
             }
             draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-        
         function createParticles() { particles = []; for (let i = 0; i < 70; i++) { particles.push(new Particle()); } }
-        
         function animate() {
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
-        
         window.addEventListener('resize', () => { init(); createParticles(); });
-        
         init(); createParticles(); animate();
     </script>
 </body>
