@@ -11,8 +11,6 @@
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* VARIABILI TEMA DINAMICO */
         :root {
             --bg-color: #000;
             --text-color: #fff;
@@ -21,8 +19,6 @@
             --section-title: #aaa;
             --social-color: #999;
         }
-
-        /* TEMA CHIARO (Applicato via JS di giorno) */
         body.light-theme {
             --bg-color: #ffffff;
             --text-color: #000000;
@@ -31,7 +27,6 @@
             --section-title: #666;
             --social-color: #444;
         }
-
         body { 
             background-color: var(--bg-color); 
             color: var(--text-color); 
@@ -41,102 +36,36 @@
             position: relative; 
             transition: background 0.8s ease, color 0.8s ease;
         }
-
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-
         .container { 
-            position: relative; 
-            z-index: 10; 
-            text-align: center; 
-            width: 100%; 
-            max-width: 420px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
+            position: relative; z-index: 10; text-align: center; 
+            width: 100%; max-width: 420px; margin: 0 auto; padding: 40px 20px; 
         }
-        
-        @keyframes fadeInUp { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        .animate { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
-        .delay-1 { animation-delay: 0.2s; } 
-        .delay-2 { animation-delay: 0.4s; } 
-        .delay-3 { animation-delay: 0.6s; } 
-
         .logo { 
-            font-size: 4rem; 
-            font-weight: 900; 
-            letter-spacing: 15px; 
-            margin-bottom: 30px; 
+            font-size: 4rem; font-weight: 900; letter-spacing: 15px; margin-bottom: 30px; 
             background: linear-gradient(to bottom, var(--text-color) 30%, #444 100%); 
-            -webkit-background-clip: text; /* Per Safari/Chrome */
-            background-clip: text;         /* Proprietà standard risolve l'errore */
-            -webkit-text-fill-color: transparent; 
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
         }
-
         .links-container { display: flex; flex-direction: column; gap: 12px; }
-        
         .btn { 
-            background: var(--btn-bg); 
-            border: 1px solid var(--btn-border); 
-            padding: 16px; 
-            color: var(--text-color); 
-            text-decoration: none; 
-            font-size: 0.85rem; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            border-radius: 12px; 
-            transition: all 0.3s ease; 
-            backdrop-filter: blur(10px); 
+            background: var(--btn-bg); border: 1px solid var(--btn-border); padding: 16px; 
+            color: var(--text-color); text-decoration: none; font-size: 0.85rem; 
+            letter-spacing: 2px; text-transform: uppercase; border-radius: 12px; 
+            transition: all 0.3s ease; backdrop-filter: blur(10px); display: block; cursor: pointer;
         }
-
         .btn:hover { background: var(--text-color); color: var(--bg-color); transform: translateY(-3px); }
-
         .section-title { 
-            color: var(--section-title); 
-            font-size: 10px; 
-            letter-spacing: 3px; 
-            margin-top: 25px; 
-            margin-bottom: 10px; 
-            text-transform: uppercase; 
-            font-weight: 600;
+            color: var(--section-title); font-size: 10px; letter-spacing: 3px; 
+            margin-top: 25px; margin-bottom: 10px; text-transform: uppercase; font-weight: 600;
         }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 40px;
-        }
-
-        .social-links a {
-            color: var(--social-color);
-            font-size: 26px;
-            transition: all 0.3s ease;
-        }
-
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-links a { color: var(--social-color); font-size: 26px; transition: all 0.3s ease; }
         .social-links a:hover { color: var(--text-color); transform: translateY(-3px); }
-
         .whatsapp-float { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            background-color: #25d366; 
-            color: white !important; 
-            width: 60px; 
-            height: 60px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 32px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
-            z-index: 1000; 
-            transition: all 0.3s ease; 
-        }
-
-        @media (max-width: 768px) {
-            .logo { font-size: 3rem; letter-spacing: 10px; }
+            position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white !important; 
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; font-size: 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
+            z-index: 1000; transition: all 0.3s ease; 
         }
     </style>
 </head>
@@ -145,26 +74,26 @@
     <canvas id="bg-canvas"></canvas>
 
     <main class="container">
-        <h1 class="logo animate delay-1">DASTO</h1>
+        <h1 class="logo">DASTO</h1>
 
-        <div class="player-container animate delay-2" style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid var(--btn-border); background: rgba(0,0,0,0.2);">
-            <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2251688624&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+        <div style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid var(--btn-border); background: rgba(0,0,0,0.2);">
+            <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
         </div>
 
-        <div class="links-container animate delay-3">
-            <p class="section-title" id="txt-press-title"></p>
-            <a href="pdf/presskit-dasto.pdf" class="btn" target="_blank" id="txt-press-btn"></a>
-            <a href="pdf/tech-rider-dasto.pdf" class="btn" target="_blank" id="txt-tech-btn"></a>
+        <div class="links-container">
+            <p class="section-title" id="title-press">Press & Technical</p>
+            <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn" id="btn-press">📂 Vedi Press Kit</a>
+            <a onclick="openAndDownload('pdf/tech-rider-dasto.pdf')" class="btn" id="btn-tech">⚙️ Scheda Tecnica</a>
 
-            <p class="section-title" id="txt-training-title"></p>
-            <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn" id="txt-courses-btn"></a>
-            <a href="https://chat.whatsapp.com/E6Jp7Vn4ZqMLS99xP5cFMM" class="btn" target="_blank" style="margin-top: 5px; background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3);" id="txt-community-btn"></a>
+            <p class="section-title" id="title-training">DJ & Producer Training</p>
+            <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn" id="btn-courses">🎓 DJ & Producer Courses</a>
+            <a href="https://chat.whatsapp.com/E6Jp7Vn4ZqMLS99xP5cFMM" target="_blank" class="btn" style="background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3);" id="btn-community">👥 Community WhatsApp</a>
            
-            <p class="section-title" id="txt-booking-title"></p>
-            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="txt-booking-btn"></a>
+            <p class="section-title" id="title-booking">Booking</p>
+            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="btn-booking">📱 Contatta per Booking</a>
         </div>
 
-        <div class="social-links animate delay-3">
+        <div class="social-links">
             <a href="https://www.instagram.com/dastodj/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://soundcloud.com/dastodj" target="_blank"><i class="fab fa-soundcloud"></i></a>
         </div>
@@ -172,52 +101,59 @@
         <footer style="margin-top: 30px; font-size: 0.7rem; color: var(--section-title); letter-spacing: 3px;">NAPLES • 2026</footer>
     </main>
 
-    <a href="https://wa.me/393514090392" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/393514090392" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <script>
-        // 1. TRADUZIONI AUTOMATICHE
+        // TRADUZIONI DINAMICHE
         const translations = {
             it: {
-                pressTitle: "Press & Technical",
-                pressBtn: "📂 Vedi Press Kit",
-                techBtn: "⚙️ Scheda Tecnica",
-                trainTitle: "DJ & Producer Training",
-                courseBtn: "🎓 Corsi Professionali",
-                commBtn: "👥 Entra nella Community",
-                bookTitle: "Booking",
-                bookBtn: "📱 WhatsApp Booking"
+                press: "Press & Technical",
+                btnPress: "📂 Vedi Press Kit",
+                btnTech: "⚙️ Scheda Tecnica",
+                training: "DJ & Producer Training",
+                btnCourses: "🎓 DJ & Producer Courses",
+                btnComm: "👥 Community WhatsApp",
+                booking: "Booking",
+                btnBook: "📱 Contatta per Booking"
             },
             en: {
-                pressTitle: "Press & Technical",
-                pressBtn: "📂 View Press Kit",
-                techBtn: "⚙️ Tech Rider",
-                trainTitle: "DJ & Producer Training",
-                courseBtn: "🎓 Professional Courses",
-                commBtn: "👥 Join DJ Community",
-                bookTitle: "Booking",
-                bookBtn: "📱 WhatsApp Booking"
+                press: "Press & Technical",
+                btnPress: "📂 View Press Kit",
+                btnTech: "⚙️ Tech Rider (PDF)",
+                training: "DJ & Producer Training",
+                btnCourses: "🎓 DJ & Producer Courses",
+                btnComm: "👥 Join Community",
+                booking: "Booking",
+                btnBook: "📱 WhatsApp Booking"
             }
         };
 
         const lang = navigator.language.startsWith('it') ? 'it' : 'en';
-        document.getElementById('txt-press-title').innerText = translations[lang].pressTitle;
-        document.getElementById('txt-press-btn').innerText = translations[lang].pressBtn;
-        document.getElementById('txt-tech-btn').innerText = translations[lang].techBtn;
-        document.getElementById('txt-training-title').innerText = translations[lang].trainTitle;
-        document.getElementById('txt-courses-btn').innerText = translations[lang].courseBtn;
-        document.getElementById('txt-community-btn').innerText = translations[lang].commBtn;
-        document.getElementById('txt-booking-title').innerText = translations[lang].bookTitle;
-        document.getElementById('txt-booking-btn').innerText = translations[lang].bookBtn;
+        document.getElementById('title-press').innerText = translations[lang].press;
+        document.getElementById('btn-press').innerText = translations[lang].btnPress;
+        document.getElementById('btn-tech').innerText = translations[lang].btnTech;
+        document.getElementById('title-training').innerText = translations[lang].training;
+        document.getElementById('btn-courses').innerText = translations[lang].btnCourses;
+        document.getElementById('btn-community').innerText = translations[lang].btnComm;
+        document.getElementById('title-booking').innerText = translations[lang].booking;
+        document.getElementById('btn-booking').innerText = translations[lang].btnBook;
 
-        // 2. TEMA GIORNO/NOTTE (Luce tra le 07:00 e le 19:00)
-        const hour = new Date().getHours();
-        if (hour >= 7 && hour < 19) {
-            document.body.classList.add('light-theme');
+        // FUNZIONE APRI + SCARICA
+        function openAndDownload(url) {
+            window.open(url, '_blank');
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = url.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
-        // 3. SFONDO PARTICELLE
+        // TEMA GIORNO/NOTTE
+        const hour = new Date().getHours();
+        if (hour >= 7 && hour < 19) { document.body.classList.add('light-theme'); }
+
+        // SFONDO PARTICELLE
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -238,7 +174,7 @@
             }
             draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-        function createParticles() { particles = []; for (let i = 0; i < 70; i++) { particles.push(new Particle()); } }
+        function createParticles() { particles = []; for (let i = 0; i < 60; i++) { particles.push(new Particle()); } }
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
