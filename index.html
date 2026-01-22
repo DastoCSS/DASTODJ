@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DASTO | Official Site</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
     
     <style>
-/* Reset + Vars */
+/* Reset + Variabili */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -18,9 +18,8 @@
   --text-color: #fff;
   --btn-bg: rgba(255,255,255,0.05);
   --btn-border: rgba(255,255,255,0.1);
-  --section-title: #aaa;
-  --glass: rgba(0, 0, 0, 0.45);
-  --accent-color: #ff5500;
+  --section-title: #888;
+  --glass: rgba(0, 0, 0, 0.55);
 }
 
 body.light-theme {
@@ -30,22 +29,25 @@ body.light-theme {
   --btn-border: rgba(0,0,0,0.08);
   --section-title: #6e6e73;
   --glass: rgba(255, 255, 255, 0.4);
-  --accent-color: #ff6622;
 }
 
+/* Layout Flex per tutti i dispositivi */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  /* Dynamic Viewport Height per Mobile */
+  min-height: 100dvh; 
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
+  padding: 20px 0; /* Spazio per scorrere se lo schermo è piccolo */
 }
 
-/* Canvas Sfondo Dinamico */
+/* Sfondo Animato */
 #canvas-bg {
   position: fixed;
   top: 0; left: 0;
@@ -55,56 +57,66 @@ body {
   transform: scale(1.1);
 }
 
-/* Container Centrale Glass */
+/* Container Tabella con Flex */
 .container {
   position: relative;
   z-index: 10;
-  width: 90%;
+  width: 92%; /* Più flessibile su mobile */
   max-width: 410px;
-  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  padding: 35px 20px;
   background: var(--glass);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   border: 1px solid var(--btn-border);
   border-radius: 35px;
   text-align: center;
-  box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
 }
 
 .logo {
-  font-size: 3.8rem;
+  font-size: clamp(2.5rem, 10vw, 3.8rem); /* Font fluido per mobile */
   font-weight: 900;
   letter-spacing: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   background: linear-gradient(180deg, var(--text-color) 35%, rgba(150,150,150,0.4) 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
 }
 
-/* Formattazione Tabella Originale */
-.links-container { display: flex; flex-direction: column; gap: 10px; }
+/* Flexbox per i Links */
+.links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
 
 .section-title {
   color: var(--section-title);
   font-size: 10px;
   letter-spacing: 3px;
-  margin-top: 20px;
-  margin-bottom: 8px;
+  margin-top: 15px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   font-weight: 600;
 }
 
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--btn-bg);
   border: 1px solid var(--btn-border);
   padding: 16px;
   color: var(--text-color);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   border-radius: 12px;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  font-weight: 400;
 }
 
 .btn:hover {
@@ -118,37 +130,55 @@ body {
   color: #25d366; 
 }
 
-/* Cornetta Flottante */
+/* Social & Footer Flex */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.social-links a {
+  color: var(--text-color);
+  font-size: 22px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+/* Cornetta WhatsApp Flottante */
 .call-float {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
   background-color: #25d366;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+  font-size: 24px;
   z-index: 1000;
   text-decoration: none;
-  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
 }
 
-.call-float:hover {
-  transform: scale(1.1) rotate(10deg);
-  background-color: #20ba5a;
+iframe {
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: none;
+  background: rgba(0,0,0,0.1);
+  width: 100%;
+  flex-shrink: 0;
 }
 
-/* Player & Social */
-iframe { border-radius: 15px; margin-bottom: 20px; border: none; background: rgba(0,0,0,0.1); }
-.social-links { display: flex; justify-content: center; gap: 25px; margin-top: 30px; }
-.social-links a { color: var(--text-color); font-size: 24px; opacity: 0.6; transition: 0.3s; }
-.social-links a:hover { opacity: 1; transform: translateY(-3px); }
-footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); letter-spacing: 4px; }
+footer {
+  margin-top: 20px;
+  font-size: 0.6rem;
+  color: var(--section-title);
+  letter-spacing: 4px;
+}
 
     </style>
 </head>
@@ -159,14 +189,14 @@ footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); lett
     <main class="container">
         <h1 class="logo">DASTO</h1>
 
-        <iframe width="100%" height="150" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
+        <iframe width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
 
         <div class="links-container">
             <p class="section-title">Press & Technical</p>
-            <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn">📂 Vedi Press Kit</a>
+            <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn">📂 Press Kit</a>
             <a href="pdf/tech-rider-dasto.pdf" target="_blank" class="btn">⚙️ Scheda Tecnica</a>
 
-            <p class="section-title">DJ & Producer Training</p>
+            <p class="section-title">Training</p>
             <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn">🎓 DJ Courses</a>
            
             <p class="section-title">Booking</p>
@@ -190,7 +220,6 @@ footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); lett
         const ctx = canvas.getContext('2d');
         let w, h, blobs = [];
 
-        // Logica oraria 08:00 - 20:00
         const hour = new Date().getHours();
         const isMorning = hour >= 8 && hour < 20;
         if(isMorning) document.body.classList.add('light-theme');
@@ -201,16 +230,15 @@ footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); lett
 
         class Blob {
             constructor(color) {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.r = Math.random() * (w * 0.5) + (w * 0.3);
-                this.vx = (Math.random() - 0.5) * 6; // Movimento veloce
-                this.vy = (Math.random() - 0.5) * 6;
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.r = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.3);
+                this.vx = (Math.random() - 0.5) * 4.5;
+                this.vy = (Math.random() - 0.5) * 4.5;
                 this.color = color;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < -this.r || this.x > w + this.r) this.vx *= -1;
                 if (this.y < -this.r || this.y > h + this.r) this.vy *= -1;
             }
@@ -219,9 +247,7 @@ footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); lett
                 grad.addColorStop(0, this.color);
                 grad.addColorStop(1, 'transparent');
                 ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill();
             }
         }
 
@@ -239,8 +265,7 @@ footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); lett
         }
 
         window.addEventListener('resize', init);
-        init();
-        loop();
+        init(); loop();
     </script>
 </body>
 </html>
