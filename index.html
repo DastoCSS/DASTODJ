@@ -61,12 +61,19 @@
         .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
         .social-links a { color: var(--social-color); font-size: 26px; transition: all 0.3s ease; }
         .social-links a:hover { color: var(--text-color); transform: translateY(-3px); }
-        .whatsapp-float { 
-            position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white !important; 
-            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; 
-            justify-content: center; font-size: 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
+
+        /* PULSANTE CHIAMA ORA (CORNETTA) */
+        .call-float { 
+            position: fixed; bottom: 30px; right: 30px; 
+            background-color: #007bff; 
+            color: white !important; 
+            width: 60px; height: 60px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
             z-index: 1000; transition: all 0.3s ease; 
+            text-decoration: none;
         }
+        .call-float:hover { transform: scale(1.1); background-color: #0056b3; }
     </style>
 </head>
 <body>
@@ -90,7 +97,7 @@
             <a href="https://chat.whatsapp.com/E6Jp7Vn4ZqMLS99xP5cFMM" target="_blank" class="btn" style="background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3);" id="btn-community">👥 Community WhatsApp</a>
            
             <p class="section-title" id="title-booking">Booking</p>
-            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="btn-booking">📱 Contatta per Booking</a>
+            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="btn-booking">📱 WhatsApp Booking</a>
         </div>
 
         <div class="social-links">
@@ -101,7 +108,9 @@
         <footer style="margin-top: 30px; font-size: 0.7rem; color: var(--section-title); letter-spacing: 3px;">NAPLES • 2026</footer>
     </main>
 
-    <a href="https://wa.me/393514090392" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:+393514090392" class="call-float">
+        <i class="fas fa-phone"></i>
+    </a>
 
     <script>
         // TRADUZIONI DINAMICHE
@@ -114,7 +123,7 @@
                 btnCourses: "🎓 DJ & Producer Courses",
                 btnComm: "👥 Community WhatsApp",
                 booking: "Booking",
-                btnBook: "📱 Contatta per Booking"
+                btnBook: "📱 WhatsApp Booking"
             },
             en: {
                 press: "Press & Technical",
