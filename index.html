@@ -7,190 +7,240 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-color: #000;
-            --text-color: #fff;
-            --btn-bg: rgba(255, 255, 255, 0.05);
-            --btn-border: rgba(255, 255, 255, 0.1);
-            --section-title: #aaa;
-            --social-color: #999;
-        }
-        body.light-theme {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-            --btn-bg: rgba(0, 0, 0, 0.05);
-            --btn-border: rgba(0, 0, 0, 0.1);
-            --section-title: #666;
-            --social-color: #444;
-        }
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            font-family: 'Inter', sans-serif; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-            position: relative; 
-            transition: background 0.8s ease, color 0.8s ease;
-        }
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .container { 
-            position: relative; z-index: 10; text-align: center; 
-            width: 100%; max-width: 420px; margin: 0 auto; padding: 40px 20px; 
-        }
-        .logo { 
-            font-size: 4rem; font-weight: 900; letter-spacing: 15px; margin-bottom: 30px; 
-            background: linear-gradient(to bottom, var(--text-color) 30%, #444 100%); 
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
-        }
-        .links-container { display: flex; flex-direction: column; gap: 12px; }
-        .btn { 
-            background: var(--btn-bg); border: 1px solid var(--btn-border); padding: 16px; 
-            color: var(--text-color); text-decoration: none; font-size: 0.85rem; 
-            letter-spacing: 2px; text-transform: uppercase; border-radius: 12px; 
-            transition: all 0.3s ease; backdrop-filter: blur(10px); display: block; cursor: pointer;
-        }
-        .btn:hover { background: var(--text-color); color: var(--bg-color); transform: translateY(-3px); }
-        .section-title { 
-            color: var(--section-title); font-size: 10px; letter-spacing: 3px; 
-            margin-top: 25px; margin-bottom: 10px; text-transform: uppercase; font-weight: 600;
-        }
-        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
-        .social-links a { color: var(--social-color); font-size: 26px; transition: all 0.3s ease; }
-        .social-links a:hover { color: var(--text-color); transform: translateY(-3px); }
+/* Reset + Vars */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* PULSANTE CHIAMA ORA (CORNETTA) */
-        .call-float { 
-            position: fixed; bottom: 30px; right: 30px; 
-            background-color: #007bff; 
-            color: white !important; 
-            width: 60px; height: 60px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
-            z-index: 1000; transition: all 0.3s ease; 
-            text-decoration: none;
-        }
-        .call-float:hover { transform: scale(1.1); background-color: #0056b3; }
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+  --btn-bg: rgba(255,255,255,0.05);
+  --btn-border: rgba(255,255,255,0.1);
+  --section-title: #aaa;
+  --glass: rgba(0, 0, 0, 0.45);
+  --accent-color: #ff5500;
+}
+
+body.light-theme {
+  --bg-color: #f5f5f7;
+  --text-color: #1d1d1f;
+  --btn-bg: rgba(0,0,0,0.03);
+  --btn-border: rgba(0,0,0,0.08);
+  --section-title: #6e6e73;
+  --glass: rgba(255, 255, 255, 0.4);
+  --accent-color: #ff6622;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Canvas Sfondo Dinamico */
+#canvas-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  filter: blur(80px) contrast(1.1);
+  transform: scale(1.1);
+}
+
+/* Container Centrale Glass */
+.container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 410px;
+  padding: 40px 25px;
+  background: var(--glass);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--btn-border);
+  border-radius: 35px;
+  text-align: center;
+  box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+}
+
+.logo {
+  font-size: 3.8rem;
+  font-weight: 900;
+  letter-spacing: 12px;
+  margin-bottom: 30px;
+  background: linear-gradient(180deg, var(--text-color) 35%, rgba(150,150,150,0.4) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* Formattazione Tabella Originale */
+.links-container { display: flex; flex-direction: column; gap: 10px; }
+
+.section-title {
+  color: var(--section-title);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.btn {
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  padding: 16px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  font-weight: 400;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+#btn-booking { 
+  border-color: #25d366; 
+  color: #25d366; 
+}
+
+/* Cornetta Flottante */
+.call-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+  z-index: 1000;
+  text-decoration: none;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.call-float:hover {
+  transform: scale(1.1) rotate(10deg);
+  background-color: #20ba5a;
+}
+
+/* Player & Social */
+iframe { border-radius: 15px; margin-bottom: 20px; border: none; background: rgba(0,0,0,0.1); }
+.social-links { display: flex; justify-content: center; gap: 25px; margin-top: 30px; }
+.social-links a { color: var(--text-color); font-size: 24px; opacity: 0.6; transition: 0.3s; }
+.social-links a:hover { opacity: 1; transform: translateY(-3px); }
+footer { margin-top: 25px; font-size: 0.65rem; color: var(--section-title); letter-spacing: 4px; }
+
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="canvas-bg"></canvas>
 
     <main class="container">
         <h1 class="logo">DASTO</h1>
 
-        <div style="margin-bottom: 30px; border-radius: 15px; overflow: hidden; border: 1px solid var(--btn-border); background: rgba(0,0,0,0.2);">
-            <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-        </div>
+        <iframe width="100%" height="150" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
 
         <div class="links-container">
-            <p class="section-title" id="title-press">Press & Technical</p>
-            <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn" id="btn-press">📂 Vedi Press Kit</a>
-            <a onclick="openAndDownload('pdf/tech-rider-dasto.pdf')" class="btn" id="btn-tech">⚙️ Scheda Tecnica</a>
+            <p class="section-title">Press & Technical</p>
+            <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn">📂 Vedi Press Kit</a>
+            <a href="pdf/tech-rider-dasto.pdf" target="_blank" class="btn">⚙️ Scheda Tecnica</a>
 
-            <p class="section-title" id="title-training">DJ & Producer Training</p>
-            <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn" id="btn-courses">🎓 DJ & Producer Courses</a>
-            <a href="https://chat.whatsapp.com/E6Jp7Vn4ZqMLS99xP5cFMM" target="_blank" class="btn" style="background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3);" id="btn-community">👥 Community WhatsApp</a>
+            <p class="section-title">DJ & Producer Training</p>
+            <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn">🎓 DJ Courses</a>
            
-            <p class="section-title" id="title-booking">Booking</p>
-            <a href="https://wa.me/393514090392?text=Booking%20Info" class="btn" style="border-color: #25d366; color: #25d366;" id="btn-booking">📱 WhatsApp Booking</a>
+            <p class="section-title">Booking</p>
+            <a href="https://wa.me/393514090392?text=Booking" class="btn" id="btn-booking">📱 WhatsApp Booking</a>
         </div>
 
         <div class="social-links">
-            <a href="https://www.instagram.com/dastodj/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://soundcloud.com/dastodj" target="_blank"><i class="fab fa-soundcloud"></i></a>
+            <a href="https://www.instagram.com/dastodj/"><i class="fab fa-instagram"></i></a>
+            <a href="https://soundcloud.com/dastodj"><i class="fab fa-soundcloud"></i></a>
         </div>
 
-        <footer style="margin-top: 30px; font-size: 0.7rem; color: var(--section-title); letter-spacing: 3px;">NAPLES • 2026</footer>
+        <footer>NAPLES • 2026</footer>
     </main>
 
-    <a href="tel:+393514090392" class="call-float">
-        <i class="fas fa-phone"></i>
+    <a href="https://wa.me/393514090392" class="call-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
-        // TRADUZIONI DINAMICHE
-        const translations = {
-            it: {
-                press: "Press & Technical",
-                btnPress: "📂 Vedi Press Kit",
-                btnTech: "⚙️ Scheda Tecnica",
-                training: "DJ & Producer Training",
-                btnCourses: "🎓 DJ & Producer Courses",
-                btnComm: "👥 Community WhatsApp",
-                booking: "Booking",
-                btnBook: "📱 WhatsApp Booking"
-            },
-            en: {
-                press: "Press & Technical",
-                btnPress: "📂 View Press Kit",
-                btnTech: "⚙️ Tech Rider (PDF)",
-                training: "DJ & Producer Training",
-                btnCourses: "🎓 DJ & Producer Courses",
-                btnComm: "👥 Join Community",
-                booking: "Booking",
-                btnBook: "📱 WhatsApp Booking"
-            }
-        };
-
-        const lang = navigator.language.startsWith('it') ? 'it' : 'en';
-        document.getElementById('title-press').innerText = translations[lang].press;
-        document.getElementById('btn-press').innerText = translations[lang].btnPress;
-        document.getElementById('btn-tech').innerText = translations[lang].btnTech;
-        document.getElementById('title-training').innerText = translations[lang].training;
-        document.getElementById('btn-courses').innerText = translations[lang].btnCourses;
-        document.getElementById('btn-community').innerText = translations[lang].btnComm;
-        document.getElementById('title-booking').innerText = translations[lang].booking;
-        document.getElementById('btn-booking').innerText = translations[lang].btnBook;
-
-        // FUNZIONE APRI + SCARICA
-        function openAndDownload(url) {
-            window.open(url, '_blank');
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = url.split('/').pop();
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // TEMA GIORNO/NOTTE
-        const hour = new Date().getHours();
-        if (hour >= 7 && hour < 19) { document.body.classList.add('light-theme'); }
-
-        // SFONDO PARTICELLE
-        const canvas = document.getElementById('bg-canvas');
+        const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.2 + 0.1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.color = (hour >= 7 && hour < 19) ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.2)';
+        let w, h, blobs = [];
+
+        // Logica oraria 08:00 - 20:00
+        const hour = new Date().getHours();
+        const isMorning = hour >= 8 && hour < 20;
+        if(isMorning) document.body.classList.add('light-theme');
+
+        const colors = isMorning 
+            ? ['#FFD2A0', '#A29BFE', '#81ECEC', '#FF9F9F'] 
+            : ['#FF5500', '#6600FF', '#00CCFF', '#FF0077'];
+
+        class Blob {
+            constructor(color) {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.r = Math.random() * (w * 0.5) + (w * 0.3);
+                this.vx = (Math.random() - 0.5) * 6; // Movimento veloce
+                this.vy = (Math.random() - 0.5) * 6;
+                this.color = color;
             }
             update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < -this.r || this.x > w + this.r) this.vx *= -1;
+                if (this.y < -this.r || this.y > h + this.r) this.vy *= -1;
             }
-            draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+            draw() {
+                const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+                grad.addColorStop(0, this.color);
+                grad.addColorStop(1, 'transparent');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
-        function createParticles() { particles = []; for (let i = 0; i < 60; i++) { particles.push(new Particle()); } }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
+
+        function init() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            blobs = colors.map(c => new Blob(c));
         }
-        window.addEventListener('resize', () => { init(); createParticles(); });
-        init(); createParticles(); animate();
+
+        function loop() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.globalCompositeOperation = isMorning ? 'multiply' : 'screen';
+            blobs.forEach(b => { b.update(); b.draw(); });
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        loop();
     </script>
 </body>
 </html>
