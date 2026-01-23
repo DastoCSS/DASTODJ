@@ -2,15 +2,17 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DASTO | Official Site</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎧%3C/text%3E%3C/svg%3E">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
     
     <style>
-/* Reset e Variabili Base (Tema Notte di default) */
+/* Reset e Variabili */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -23,12 +25,11 @@
   --accent-color: #25d366;
 }
 
-/* Tema Giorno (Attivo dalle 08:00 alle 20:00) */
 body.light-theme {
   --bg-color: #f5f5f7;
   --text-color: #1d1d1f;
   --btn-bg: rgba(0,0,0,0.03);
-  --btn-border: rgba(0,0,0,0.08);
+  --btn-border: rgba(0,0,0,0.06);
   --section-title: #6e6e73;
   --glass: rgba(255, 255, 255, 0.3);
 }
@@ -46,7 +47,6 @@ body {
   transition: background-color 0.8s ease;
 }
 
-/* Sfondo Animato */
 #canvas-bg {
   position: fixed;
   top: 0; left: 0;
@@ -56,7 +56,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Container Centrale */
 .container {
   position: relative;
   z-index: 10;
@@ -83,6 +82,17 @@ body {
   -webkit-background-clip: text; 
   background-clip: text; 
   -webkit-text-fill-color: transparent;
+}
+
+/* RISOLTO: Gestione dell'iframe via CSS (rimossi attributi obsoleti width%, frameborder e scrolling) */
+.soundcloud-frame {
+  width: 100%;
+  height: 100px;
+  border: 0;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  display: block;
 }
 
 .links-container {
@@ -142,16 +152,6 @@ body {
   transition: 0.3s;
 }
 
-.social-links a:hover { opacity: 1; }
-
-iframe {
-  border-radius: 15px;
-  margin-bottom: 15px;
-  border: none;
-  filter: grayscale(0.2);
-}
-
-/* Pulsante Floating WhatsApp */
 .call-float {
   position: fixed;
   bottom: 25px;
@@ -168,10 +168,7 @@ iframe {
   z-index: 1000;
   text-decoration: none;
   box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-  transition: transform 0.3s ease;
 }
-
-.call-float:hover { transform: scale(1.1); }
 
 footer {
   margin-top: 20px;
@@ -189,15 +186,13 @@ footer {
     <main class="container">
         <h1 class="logo">DASTO</h1>
 
-        <iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
+        <iframe class="soundcloud-frame" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
 
         <div class="links-container">
             <p class="section-title">Identity</p>
             <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn">📂 Press Kit</a>
-            
             <p class="section-title">Training</p>
             <a href="https://wa.me/393514090392?text=Info%20Corsi" class="btn">🎓 DJ Courses</a>
-           
             <p class="section-title">Booking</p>
             <a href="https://wa.me/393514090392?text=Booking" class="btn" id="btn-booking">📱 WhatsApp</a>
         </div>
@@ -219,9 +214,7 @@ footer {
         const ctx = canvas.getContext('2d');
         let w, h, blobs = [];
 
-        // --- LOGICA CAMBIO TEMA ORARIO ---
         const hour = new Date().getHours();
-        // Giorno: 08:00 - 19:59 | Notte: 20:00 - 07:59
         const isMorning = hour >= 8 && hour < 20;
 
         if(isMorning) {
@@ -230,16 +223,12 @@ footer {
             document.body.classList.remove('light-theme');
         }
 
-        // Colori Giorno (Sfumature pastello) vs Notte (Sfumature Club/Deep)
         const colors = isMorning 
             ? ['#FFD2A0', '#A29BFE', '#81ECEC', '#FF9F9F'] 
             : ['#1a1a1a', '#4a00e0', '#8e2de2', '#ff0055'];
 
         class Blob {
             constructor(color) {
-                this.init(color);
-            }
-            init(color) {
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
                 this.r = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.3);
@@ -248,8 +237,7 @@ footer {
                 this.color = color;
             }
             update() {
-                this.x += this.vx; 
-                this.y += this.vy;
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < -this.r) this.x = w + this.r;
                 if (this.x > w + this.r) this.x = -this.r;
                 if (this.y < -this.r) this.y = h + this.r;
@@ -260,9 +248,7 @@ footer {
                 grad.addColorStop(0, this.color);
                 grad.addColorStop(1, 'transparent');
                 ctx.fillStyle = grad;
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); 
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill();
             }
         }
 
@@ -274,15 +260,13 @@ footer {
 
         function loop() {
             ctx.clearRect(0, 0, w, h);
-            // Modalità di fusione: 'multiply' per il tema chiaro, 'screen' per quello scuro
             ctx.globalCompositeOperation = isMorning ? 'multiply' : 'screen';
             blobs.forEach(b => { b.update(); b.draw(); });
             requestAnimationFrame(loop);
         }
 
         window.addEventListener('resize', init);
-        init(); 
-        loop();
+        init(); loop();
     </script>
 </body>
 </html>
