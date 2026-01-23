@@ -1,38 +1,36 @@
-# DASTO | Official Linktree Site 🎧
+# DASTO | Official Site 🎧
 
-Landing page interattiva e professionale progettata per **DASTO**. Questo sito funge da hub centrale per promoter, tecnici del suono e studenti, integrando strumenti di comunicazione diretta e gestione documentale.
+Sito web ufficiale di **DASTO**, DJ e Sound Designer con base a Napoli. Una landing page interattiva, minimalista e ottimizzata per le massime prestazioni, progettata per fungere da hub centrale per booking, press kit e corsi DJ.
 
-![Version](https://img.shields.io/badge/version-1.3.0-blue)
-![Theme](https://img.shields.io/badge/Dynamic_Theme-Day%2FNight-orange)
-
----
-
-## 🚀 Funzionalità Avanzate
-
-### 1. Sistema di Contatto Doppio
-Il sito offre due canali di comunicazione immediata:
--   **WhatsApp Chat**: Il pulsante nel menu "Booking" apre una chat dedicata per info rapide.
--   **Chiamata Diretta**: L'icona flottante (cornetta blu) in basso a destra avvia istantaneamente una chiamata telefonica classica (`tel:`).
-
-### 2. Gestione Intelligente dei PDF
--   **Press Kit**: Visualizzazione browser ottimizzata in una nuova scheda.
--   **Tech Rider**: Azione combinata. Cliccando sul tasto, il documento si apre per la lettura e contemporaneamente viene avviato il **download automatico** (essenziale per l'uso offline dei tecnici in tour).
-
-### 3. Design & UX Dinamica
--   **Smart Theme**: Rilevamento automatico dell'orario locale. Il tema diventa chiaro dalle 07:00 alle 19:00 e scuro durante la notte.
--   **Canvas Particles**: Uno sfondo animato con sistema di particelle che adatta il proprio colore al tema attivo.
--   **Multilingua**: Traduzione automatica dei contenuti in **Italiano** o **Inglese** basata sulle impostazioni del browser dell'utente.
+![GitHub last commit](https://img.shields.io/github/last-commit/DastoCSS/DASTODJ?color=orange)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-## 📁 Struttura della Cartella
+## 🚀 Caratteristiche Principali
 
-Per il corretto funzionamento dei link, la gerarchia dei file deve essere la seguente:
+### 🌓 Smart Theme (Day/Night)
+Il sito rileva automaticamente l'orario locale dell'utente per offrire l'esperienza visiva migliore:
+- **Tema Giorno (08:00 - 20:00):** Sfondo chiaro, colori pastello e blending in modalità `multiply`.
+- **Tema Notte (20:00 - 08:00):** Sfondo nero profondo, luci neon e blending in modalità `screen` per un effetto clubbing.
+
+### 🎨 Background Animato in Canvas
+Utilizza un sistema di **particelle fluide (Blobs)** renderizzate su HTML5 Canvas. Le animazioni sono ottimizzate per non sovraccaricare la CPU, garantendo fluidità anche su dispositivi mobile datati.
+
+### 📱 Mobile First & Web Standards
+- **Validazione W3C:** Codice pulito e privo di errori di sintassi.
+- **Accessibilità:** Viewport ottimizzata per permettere l'uso corretto dello zoom e dei lettori di schermo.
+- **SoundCloud Integration:** Player integrato per l'ascolto immediato dei set.
+
+---
+
+## 📁 Struttura del Progetto
 
 ```text
-/
-├── index.html          # File sorgente principale
-├── README.md           # Documentazione
-└── pdf/                # Risorse documentali
+DASTODJ/
+├── index.html          # Pagina principale (HTML5/CSS3/JS)
+├── googled15...html    # File di verifica Google Search Console
+├── img/                # Asset grafici e foto
+└── pdf/                # Documentazione ufficiale
     ├── presskit-dasto.pdf
     └── tech-rider-dasto.pdf
