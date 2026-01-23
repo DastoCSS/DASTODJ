@@ -7,187 +7,36 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎧%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E🎧%3C/text%3E%3C/svg%3E">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
     
     <style>
-/* Reset e Variabili */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --btn-bg: rgba(255,255,255,0.06);
-  --btn-border: rgba(255,255,255,0.1);
-  --section-title: #888888;
-  --glass: rgba(0, 0, 0, 0.4);
-  --accent-color: #25d366;
-}
-
-body.light-theme {
-  --bg-color: #f5f5f7;
-  --text-color: #1d1d1f;
-  --btn-bg: rgba(0,0,0,0.03);
-  --btn-border: rgba(0,0,0,0.06);
-  --section-title: #6e6e73;
-  --glass: rgba(255, 255, 255, 0.3);
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Inter', sans-serif;
-  min-height: 100dvh; 
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: background-color 0.8s ease;
-}
-
-#canvas-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
-  filter: blur(80px) saturate(150%);
-  transform: scale(1.1);
-}
-
-.container {
-  position: relative;
-  z-index: 10;
-  width: 88%;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  padding: 30px 20px;
-  background: var(--glass);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid var(--btn-border);
-  border-radius: 35px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-}
-
-.logo {
-  font-size: 2.2rem;
-  font-weight: 900;
-  letter-spacing: 12px;
-  margin-bottom: 25px;
-  background: linear-gradient(180deg, var(--text-color) 0%, rgba(150,150,150,0.5) 100%);
-  -webkit-background-clip: text; 
-  background-clip: text; 
-  -webkit-text-fill-color: transparent;
-}
-
-/* RISOLTO: Gestione dell'iframe via CSS (rimossi attributi obsoleti width%, frameborder e scrolling) */
-.soundcloud-frame {
-  width: 100%;
-  height: 100px;
-  border: 0;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  display: block;
-}
-
-.links-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.section-title {
-  color: var(--section-title);
-  font-size: 10px;
-  letter-spacing: 2px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--btn-bg);
-  border: 1px solid var(--btn-border);
-  padding: 14px;
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 0.75rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
-  transform: translateY(-2px);
-}
-
-#btn-booking { 
-  border-color: rgba(37, 211, 102, 0.4); 
-  color: var(--accent-color); 
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 25px;
-}
-
-.social-links a {
-  color: var(--text-color);
-  font-size: 20px;
-  opacity: 0.6;
-  transition: 0.3s;
-}
-
-.call-float {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 55px;
-  height: 55px;
-  background-color: #25d366;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  z-index: 1000;
-  text-decoration: none;
-  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 0.6rem;
-  color: var(--section-title);
-  letter-spacing: 4px;
-  opacity: 0.5;
-}
+        /* [Il resto del CSS rimane invariato] */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-color: #000; --text-color: #fff; --btn-bg: rgba(255,255,255,0.06); --btn-border: rgba(255,255,255,0.1); --section-title: #888; --glass: rgba(0, 0, 0, 0.4); --accent-color: #25d366; }
+        body.light-theme { --bg-color: #f5f5f7; --text-color: #1d1d1f; --btn-bg: rgba(0,0,0,0.03); --btn-border: rgba(0,0,0,0.06); --section-title: #6e6e73; --glass: rgba(255, 255, 255, 0.3); }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', sans-serif; min-height: 100dvh; width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: background-color 0.8s ease; }
+        #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; filter: blur(80px) saturate(150%); transform: scale(1.1); }
+        .container { position: relative; z-index: 10; width: 88%; max-width: 350px; display: flex; flex-direction: column; padding: 30px 20px; background: var(--glass); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--btn-border); border-radius: 35px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: 12px; margin-bottom: 25px; background: linear-gradient(180deg, var(--text-color) 0%, rgba(150,150,150,0.5) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .soundcloud-frame { width: 100%; height: 100px; border: 0; border-radius: 15px; margin-bottom: 15px; overflow: hidden; display: block; }
+        .links-container { display: flex; flex-direction: column; gap: 8px; }
+        .section-title { color: var(--section-title); font-size: 10px; letter-spacing: 2px; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; font-weight: 600; }
+        .btn { display: flex; align-items: center; justify-content: center; background: var(--btn-bg); border: 1px solid var(--btn-border); padding: 14px; color: var(--text-color); text-decoration: none; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn:hover { background: var(--text-color); color: var(--bg-color); transform: translateY(-2px); }
+        #btn-booking { border-color: rgba(37, 211, 102, 0.4); color: var(--accent-color); }
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 25px; }
+        .social-links a { color: var(--text-color); font-size: 20px; opacity: 0.6; transition: 0.3s; }
+        .call-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background-color: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; text-decoration: none; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+        footer { margin-top: 20px; font-size: 0.6rem; color: var(--section-title); letter-spacing: 4px; opacity: 0.5; }
     </style>
 </head>
 <body>
-
     <canvas id="canvas-bg"></canvas>
-
     <main class="container">
         <h1 class="logo">DASTO</h1>
-
         <iframe class="soundcloud-frame" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2251688624&color=%23ff5500&auto_play=false&visual=true"></iframe>
-
         <div class="links-container">
             <p class="section-title">Identity</p>
             <a href="pdf/presskit-dasto.pdf" target="_blank" class="btn">📂 Press Kit</a>
@@ -196,75 +45,26 @@ footer {
             <p class="section-title">Booking</p>
             <a href="https://wa.me/393514090392?text=Booking" class="btn" id="btn-booking">📱 WhatsApp</a>
         </div>
-
         <div class="social-links">
             <a href="https://www.instagram.com/dastodj/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://soundcloud.com/dastodj" target="_blank"><i class="fab fa-soundcloud"></i></a>
         </div>
-
         <footer>NAPLES • 2026</footer>
     </main>
-
     <a href="https://wa.me/393514090392" class="call-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
-
     <script>
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         let w, h, blobs = [];
-
         const hour = new Date().getHours();
         const isMorning = hour >= 8 && hour < 20;
-
-        if(isMorning) {
-            document.body.classList.add('light-theme');
-        } else {
-            document.body.classList.remove('light-theme');
-        }
-
-        const colors = isMorning 
-            ? ['#FFD2A0', '#A29BFE', '#81ECEC', '#FF9F9F'] 
-            : ['#1a1a1a', '#4a00e0', '#8e2de2', '#ff0055'];
-
-        class Blob {
-            constructor(color) {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
-                this.r = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.3);
-                this.vx = (Math.random() - 0.5) * 2.5;
-                this.vy = (Math.random() - 0.5) * 2.5;
-                this.color = color;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < -this.r) this.x = w + this.r;
-                if (this.x > w + this.r) this.x = -this.r;
-                if (this.y < -this.r) this.y = h + this.r;
-                if (this.y > h + this.r) this.y = -this.r;
-            }
-            draw() {
-                const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-                grad.addColorStop(0, this.color);
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        function init() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            blobs = colors.map(c => new Blob(c));
-        }
-
-        function loop() {
-            ctx.clearRect(0, 0, w, h);
-            ctx.globalCompositeOperation = isMorning ? 'multiply' : 'screen';
-            blobs.forEach(b => { b.update(); b.draw(); });
-            requestAnimationFrame(loop);
-        }
-
+        if(isMorning) document.body.classList.add('light-theme');
+        const colors = isMorning ? ['#FFD2A0', '#A29BFE', '#81ECEC', '#FF9F9F'] : ['#1a1a1a', '#4a00e0', '#8e2de2', '#ff0055'];
+        class Blob { constructor(color) { this.x = Math.random() * window.innerWidth; this.y = Math.random() * window.innerHeight; this.r = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.3); this.vx = (Math.random() - 0.5) * 2.5; this.vy = (Math.random() - 0.5) * 2.5; this.color = color; } update() { this.x += this.vx; this.y += this.vy; if (this.x < -this.r) this.x = w + this.r; if (this.x > w + this.r) this.x = -this.r; if (this.y < -this.r) this.y = h + this.r; if (this.y > h + this.r) this.y = -this.r; } draw() { const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r); grad.addColorStop(0, this.color); grad.addColorStop(1, 'transparent'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill(); } }
+        function init() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; blobs = colors.map(c => new Blob(c)); }
+        function loop() { ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = isMorning ? 'multiply' : 'screen'; blobs.forEach(b => { b.update(); b.draw(); }); requestAnimationFrame(loop); }
         window.addEventListener('resize', init);
         init(); loop();
     </script>
